@@ -1,0 +1,31 @@
+---
+title: "Exploring Variability in Image Segmentation Models on a Pre-established Brain MRI Dataset"
+author:  
+  - Murat Şahin^[Mersin University, 18155057@mersin.edu.tr]
+  - Berkay Şahin^[Mersin University, 18155027@mersin.edu.tr]
+  - Mehmet Said Adıgüzel^[Mersin University, 19155044@mersin.edu.tr]
+output: pdf_document
+bibliography: references.bib
+csl: style.csl
+---
+
+\centerline{\small \textbf{Abstract}}
+
+Recent studies have discovered clear associations between lower-grade glioma tumors and their shape features. In this study, we aim to explore the performance of various medical image segmentation models using deep learning techniques and to test the predictive outcomes for different tumor genomic sub types.\
+
+  We used data from a previous study [@BUDA2019218], which includes preoperative imaging of 110 patients with lower-grade gliomas from five institutions participating in The Cancer Genome Atlas. From this data, three features were extracted to quantify the two-dimensional and three-dimensional characteristics of the tumors.\
+  
+  We found that the most effective model for automatic tumor segmentation was U-Net, with an accuracy of 80%, followed by PSP-Net at 70%. In brain MRI glioma analysis, radiologist annotations are considered the gold standard. The study by [@BUDA2019218] involved two expert raters who achieved an 84% Dice coefficient, placing these algorithms within the acceptable range.
+\vfill
+
+__Keywords:__ brain segmentation; variability analysis; MRI; LGG; medical imaging
+\newpage
+\leftline{\large \textbf{1\hspace{1cm}Introduction}}
+\vspace{0.5cm}
+Medical imaging often suffers from the inter-observer variability, which refers to the difference in observations made by different observers on the same case. We aim to compare and test various deep learning methods for medical imaging that could potentially be used to mitigate this issue to some extent. 
+
+Deep Learning is a relatively new field of machine learning which granted us a great performance on image segmentation and analysis. Some examples of successful applications of deep learning models are [@DBLP:journals/corr/ZhaoSQWJ16], 
+
+There are plenty deep learning models made for medical imaging. In this study, we assess their performance on this specific data set to obtain an idea upon their usability.
+
+\newpage
