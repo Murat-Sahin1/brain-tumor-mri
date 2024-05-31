@@ -4,7 +4,14 @@ author:
   - Murat Şahin^[Mersin University, 18155057@mersin.edu.tr]
   - Berkay Şahin^[Mersin University, 18155027@mersin.edu.tr]
   - Mehmet Said Adıgüzel^[Mersin University, 19155044@mersin.edu.tr]
-output: pdf_document
+output:
+  pdf_document:
+    extra_dependencies: ["geometry"]
+header-includes:
+  - \usepackage{setspace}
+  - \setstretch{1.5}
+geometry: "a4paper, margin=0.9in, includehead, includefoot, heightrounded, marginparwidth=1in"
+fontsize: 12pt
 bibliography: references.bib
 csl: style.csl
 ---
@@ -24,8 +31,16 @@ __Keywords:__ brain segmentation; variability analysis; MRI; LGG; medical imagin
 \vspace{0.5cm}
 Medical imaging often suffers from the inter-observer variability, which refers to the difference in observations made by different observers on the same case. We aim to compare and test various deep learning methods for medical imaging that could potentially be used to mitigate this issue to some extent. 
 
-Deep Learning is a relatively new field of machine learning which granted us a great performance on image segmentation and analysis. Some examples of successful applications of deep learning models are [@DBLP:journals/corr/ZhaoSQWJ16], 
+Deep Learning, a relatively new advancement in machine learning, has significantly improved image segmentation and analysis performance. This progress has paved the way for automating medical image segmentation, a field that relies on expert analysis.
 
-There are plenty deep learning models made for medical imaging. In this study, we assess their performance on this specific data set to obtain an idea upon their usability.
+Some deep learning applications in this regard, has become an integral part of medical imaging. Notable examples include the classification of lung nodules, breast cancer detection in mammograms, brain tumor segmentation and the prediction of Alzheimer's disease progression. Even with a brief overview, it's evident that deep learning has revolutionized the field of medical imaging.
+
+Given the rapid advancements in this field, testing models against diverse datasets is crucial for retrospectively optimizing them for performance.
+
+In our case, achieving a high dice coefficient value would enable the automation of tumor identification from MRI images. This would provide a fast and cost-effective alternative or support service for experts, offering a valuable second opinion.
+
+The following sections include a description of the data, the models used and their evaluation, a comparison of model evaluations, a discussion of our findings, and the conclusion.
+
+IMPORTANCE OF SKIP CONNECTIONS
 
 \newpage
