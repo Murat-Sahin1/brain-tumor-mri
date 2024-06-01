@@ -22,14 +22,14 @@ Recent studies have discovered clear associations between lower-grade glioma tum
 
   We used data from a previous study [@BUDA2019218], which includes preoperative imaging of 110 patients with lower-grade gliomas from five institutions participating in The Cancer Genome Atlas. From this data, three features were extracted to quantify the two-dimensional and three-dimensional characteristics of the tumors.\
   
-  We found that the most effective model for automatic tumor segmentation was U-Net, with an accuracy of 80%, followed by PSP-Net at 70%. In brain MRI glioma analysis, radiologist annotations are considered the gold standard. The study by [@BUDA2019218] involved two expert raters who achieved an 84% Dice coefficient, placing these algorithms within the acceptable range.
+  We found that the most effective model for automatic tumor segmentation was U-Net, with an Dice coefficient of 80%, followed by PSP-Net at 70%. In brain MRI glioma analysis, radiologist annotations are considered the gold standard. The study by [@BUDA2019218] involved two expert raters who achieved an 84% Dice coefficient, placing these algorithms within the acceptable range.
 \vfill
 
 __Keywords:__ brain segmentation; variability analysis; MRI; LGG; medical imaging
 \newpage
 \leftline{\large \textbf{1\hspace{1cm}Introduction}}
 \vspace{0.5cm}
-Medical imaging often suffers from the inter-observer variability, which refers to the difference in observations made by different observers on the same case. We aim to compare and test various deep learning methods for medical imaging that could potentially be used to mitigate this issue to some extent. 
+Medical imaging often suffers from the inter-observer variability, which refers to the difference in observations made by different observers on the same case. Our aim is to compare and test various deep learning methods on brain MRI medical imaging data that could potentially help mitigate this issue to some extent.
 
 Deep Learning, a relatively new advancement in machine learning, has significantly improved image segmentation and analysis performance. This progress has paved the way for automating medical image segmentation, a field that relies on expert analysis.
 
@@ -41,6 +41,64 @@ In our case, achieving a high dice coefficient value would enable the automation
 
 The following sections include a description of the data, the models used and their evaluation, a comparison of model evaluations, a discussion of our findings, and the conclusion.
 
-IMPORTANCE OF SKIP CONNECTIONS
+\newpage
+\leftline{\large \textbf{2\hspace{1cm}Dataset}}
+\vspace{0.5cm}
+We used the dataset from the study [@BUDA2019218], which included both two-dimensional and three-dimensional data representing the characteristics of the tumors. The data was obtained from The Cancer Imaging Archive. A neuroradiology imaging researcher then manually annotated the FLAIR images by drawing the outlines of the abnormalities, resulting in the corresponding mask images.
+\vspace{0.5cm}
+```{r, echo=FALSE, out.width='70%', fig.cap='A sample from a three-dimensional brain FLAIR MRI (left) and the corresponding two-dimensional mask outline.', fig.align='center'}
+knitr::include_graphics("figures/dataset-tester.png")
+```
+\vspace{0.5cm}
+\leftline{\normalsize \textbf{2.1\hspace{1cm}Preprocessing}}
+\vspace{0.5cm}
+No preprocessing steps are done other than skull stripping, and convolutional neural networks can automate skull stripping during preprocessing, eliminating the need for manual intervention.
 
 \newpage
+\leftline{\large \textbf{3\hspace{1cm}Methods}}
+\vspace{0.5cm}
+We have tried a few models that are used in medical imaging field. All of them are fully convolutional, since this is a segmentation task and we want to keep the spatial information of Low-grade gliomas.
+\vspace{0.5cm}
+
+\leftline{\normalsize \textbf{3.1\hspace{1cm}Flow}}
+\vspace{0.5cm}
+
+As depicted in Figure 2, the entire study methodology is presented. A key element of our approach was data augmentation, a well-established technique known to benefit convolutional neural network training. We implemented this by applying random rotations (range: 0-20 degrees), width/height shifts (range: 0-5 degrees), zooming (range: 0-5 degrees), and horizontal flipping (probability: 50%). Each model is trained with the same augmentation parameters.
+```{r, echo=FALSE, out.width='40%', fig.cap='Flow of the entire process', fig.align='center'}
+knitr::include_graphics("figures/flow.png")
+```
+
+\newpage
+\leftline{\normalsize \textbf{3.2\hspace{1cm}U-Net}}
+\vspace{0.5cm}
+We utilized the U-Net architecture [@DBLP:journals/corr/RonnebergerFB15] for segmentation, which is a fully convolutional neural network. U-Net comprises two main components: the contracting path (encoder) and the expansive path (decoder). These components are interconnected through skip connections. The encoder consists of 4 blocks, each containing 2 convolutional layers followed by a max pooling layer. The decoder also consists of 4 blocks, with each block containing 1 up-convolutional layer and 2 convolutional layers.
+
+The final layer is an additional convolutional layer with a Sigmoid activation function, designed to preserve spatial information for binary segmentation. U-Net is made for utilizing strong use of data augmentation to use the available annotated samples more efficiently. We have received %80 of Dice coefficient using U-Net architecture model with cross-validation.
+```{r, echo=FALSE, out.width='100%', fig.cap='U-Net inner block structure, taken from the (Ronneberger et al., 2015) study.', fig.align='center'}
+knitr::include_graphics("figures/u-net-architecture.png")
+```
+\newpage
+\leftline{\normalsize \textbf{3.3\hspace{1cm}PSP-Net}}
+\vspace{0.5cm}
+Our study tests the Pyramid Scene Parsing Network (PSPNet) architecture with current data, originally developed for scene parsing tasks in computer vision [@DBLP:journals/corr/ZhaoSQWJ16]. PSPNet's ability to capture multi-scale features makes it well-suited for medical image segmentation, which is the reason why we tried it in our research.
+```{r, echo=FALSE, out.width='100%', fig.cap='PSP-Net architecture, taken from the  (Zhao et al., 2016) study.', fig.align='center'}
+knitr::include_graphics("figures/pspnet.png")
+```
+We were able to receive 70% Dice coefficient with 60% IoU Metric. Also predicted images were less detailed than the other ones, see figure 5. 
+\vspace{0.5cm}
+```{r, echo=FALSE, out.width='100%', fig.cap='PSP-Net architecture, output image.', fig.align='center'}
+knitr::include_graphics("figures/pspnet-output.png")
+```
+\newpage
+\leftline{\large \textbf{3.4\hspace{1cm}Fully Convolutional Network}}
+\vspace{0.5cm}
+Every other model that we tested were already a fully convolutional network with skip connections. The one we tried is more compact form with 3 blocks with convolution layer and max pooling layer in encoder; and 1 up-convolutional layer and 1 convolutional layer with skip connections.
+
+\newpage
+\leftline{\large \textbf{2\hspace{1cm}Results}}
+\vspace{0.5cm}
+
+\newpage
+
+
+
