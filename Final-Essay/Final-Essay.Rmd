@@ -3,7 +3,7 @@ title: "Exploring Variability in Image Segmentation Models on a Pre-established 
 author:  
   - Murat Şahin^[Mersin University, 18155057@mersin.edu.tr]
   - Berkay Şahin^[Mersin University, 18155027@mersin.edu.tr]
-  - Mehmet Said Adıgüzel^[Mersin University, 19155044@mersin.edu.tr]
+  - Mehmet Sait Adıgüzel^[Mersin University, 19155044@mersin.edu.tr]
 output:
   pdf_document:
     extra_dependencies: ["geometry"]
@@ -129,6 +129,8 @@ knitr::include_graphics("figures/results.png")
 \vspace{0.5cm}
 FCN, which is essentially a lightweight version of U-Net with fewer layers and skip connections, performed the worst among the three models. This could be because FCNs are not optimized for limited data, whereas U-Net is. PSP-Net, on the other hand, found a middle ground. Its performance might be attributed to its strategy for capturing global information in the image, as it is primarily designed for scene parsing tasks. Again, PSP-Nets also not designed for limited data.
 
-The design of PSP-Net for scene parsing is why it provides less detail in predictions compared to the other two models (see the prediction masks in the methods section). U-Net, capable of displaying more detail in predicton masks, outperformed both, since FCNs can be considered lightweight versions of U-Net.
+The design of PSP-Net for scene parsing is why it provides less detail in predictions compared to the other two models (see the prediction masks in the methods section). U-Net, capable of displaying more detail in prediction masks, outperformed both, since FCNs can be considered lightweight versions of U-Net.
 
 \newpage
+\center{\large \textbf{References}}
+\vspace{0.5cm}
